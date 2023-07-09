@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hidden PWA Example</title>
+  <style>
+    /* Styles for the white layer */
+    .white-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Styles for the eye image */
+    .eye-image {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <!-- White layer with the eye image -->
+  <div class="white-layer" id="whiteLayer">
+    <img class="eye-image" src="eye.png" alt="Eye Image">
+  </div>
+  
+  <!-- Rest of your PWA content -->
+  <h1>Welcome to the Hidden PWA!</h1>
+  <p>Perform actions to hide the white layer.</p>
+  
+  <script>
+    // Check if the Page Visibility API is supported
+    if ('hidden' in document) {
+      // Listen for visibilitychange event
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+    }
+    
+    function handleVisibilityChange() {
+      var whiteLayer = document.getElementById('whiteLayer');
+      if (document.visibilityState === 'visible') {
+        // Code to run when the PWA becomes visible again
+        whiteLayer.style.display = 'none';
+      } else {
+        // Code to run when the PWA becomes hidden
+        whiteLayer.style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>
