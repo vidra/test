@@ -2,22 +2,37 @@
 <html>
 <head>
   <style>
-    iframe.hidden {
+    img.hidden {
       display: none;
     }
   </style>
   <script>
-    document.addEventListener("visibilitychange", function() {
-      var iframe = document.getElementById("myIframe");
-      if (document.visibilityState === "hidden") {
-        iframe.classList.add("hidden");
+    function handleBlur() {
+      var img = document.getElementById("myImage");
+      img.classList.add("hidden");
+    }
+
+    function handleFocus() {
+      var img = document.getElementById("myImage");
+      img.classList.remove("hidden");
+    }
+
+    function handleResize() {
+      var img = document.getElementById("myImage");
+      if (window.innerWidth < 600) {
+        img.classList.add("hidden");
       } else {
-        iframe.classList.remove("hidden");
+        img.classList.remove("hidden");
       }
-    });
+    }
+
+    window.addEventListener("blur", handleBlur, { capture: true });
+    window.addEventListener("focus", handleFocus, { capture: true });
+    window.addEventListener("resize", handleResize);
   </script>
 </head>
 <body>
-  <iframe id="myIframe" src="https://www.example.com"></iframe>
+  <img id="myImage" src="example.jpg">
 </body>
 </html>
+
