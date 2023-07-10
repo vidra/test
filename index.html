@@ -1,45 +1,52 @@
 <html>
-        <head>
-        </head>
+    <head>
         <style>
-div.container {
-  font-size: large;
-}
-
-
+            div.container {
+                font-size: large;
+                backdrop-filter: blur(0px);
+                transition: backdrop-filter 0.5s ease-in-out;
+            }
+            
+            div.container.blurred {
+                backdrop-filter: blur(5px);
+            }
         </style>
-        <body>
-<div class='container'>
-    Seconds : <div id='seconds'></div>
-</div>
+    </head>
+    <body>
+        <div class='container'>
+            Seconds : <div id='seconds'></div>
+        </div>
 
-<!-- Script -->
-<script type='text/javascript'>
- 
-var count = 0;
-var myInterval;
+        <!-- Script -->
+        <script type='text/javascript'>
+            var count = 0;
+            var myInterval;
+            var container = document.querySelector('.container');
 
-// Active
-window.addEventListener('focus', startTimer);
+            // Active
+            window.addEventListener('focus', startTimer);
 
-// Inactive
-window.addEventListener('blur', stopTimer);
+            // Inactive
+            window.addEventListener('blur', stopTimer);
 
-function timerHandler() {
-    count++;
-    document.getElementById("seconds").innerHTML = count;
-}
+            function timerHandler() {
+                count++;
+                document.getElementById("seconds").innerHTML = count;
+            }
 
-// Start timer
-function startTimer() {
-    console.log('focus');
-    myInterval = window.setInterval(timerHandler, 1000);
-}
+            // Start timer
+            function startTimer() {
+                console.log('focus');
+                container.classList.remove('blurred');
+                myInterval = window.setInterval(timerHandler, 1000);
+            }
 
-// Stop timer
-function stopTimer() {
-    window.clearInterval(myInterval);
-}
-</script>
-        </body>
+            // Stop timer
+            function stopTimer() {
+                container.classList.add('blurred');
+                window.clearInterval(myInterval);
+            }
+        </script>
+    </body>
 </html>
+
